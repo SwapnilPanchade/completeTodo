@@ -1,0 +1,15 @@
+{
+  "name": "completeprojectforrevision",
+  "version": "1.0.0",
+  "description": "This is a todo app made with the help of zod auth and many more don't remember it yet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "SwapnilPanchade",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "zod": "^3.23.8"
+  }
+}
