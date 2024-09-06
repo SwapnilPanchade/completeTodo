@@ -13,20 +13,25 @@ app.post("/todo", async (req, res) => {
       msg: "you have not a given a valid input",
     });
     return;
-  } // mongododb link : mongodb+srv://admin:7uP7XzQTV1ryT8Dj@cluster0.5godjds.mongodb.net/todoDB
-
+  }
   //!now put it in mongodb
   await todo
     .create({
       title: createPayload.title,
       description: createPayload.description,
+      completed: false,
     })
     .then(res.json({ msg: "Todo created" }));
 });
 
-app.get("/todos", (req, res) => {});
+app.get("/todos", async (req, res) => {
+  const todos = await todo.find({});
+  res.json({
+    todos,
+  });
+});
 
-app.put("/completed", (req, res) => {
+app.put("/completed", async (req, res) => {
   const updatePayload = req.body;
   const parsedPayload = updateTodo.safeParse(updatePayload);
   if (!parsedPayload) {
@@ -35,6 +40,10 @@ app.put("/completed", (req, res) => {
     });
     return;
   }
+  await todo.updateOne({ _id: req.body.id }, { completed: true });
+  res.json({
+    msg: "Todo is marked as completed",
+  });
 });
 
 app.listen(3000);
